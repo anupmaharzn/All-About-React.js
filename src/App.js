@@ -1,48 +1,61 @@
 
 import React, { Component } from 'react';
 import './App.css';
+
 import Person from './Person/Person';
 
 
 class App extends Component{
 
    
-  //certain data ko state
+  //certain data ko state//in real case this can be data fetch from API 
   state = {
     persons: [
-      { name: 'anup', age: 23 },
-      { name: 'saira', age: 2 },
-      { name: 'bimala', age: 52 }
+      { id:'1',name: 'anup', age: 23 },
+      { id: '2',name: 'saira', age: 2 },
+      { id: '3',name: 'bimala', age: 52 }
     ],
-    otherstate: 'some other value'
+    otherstate: 'some other value',
+    showPersons : false
   }
 
   //anyform of function hunu parxa shorthanded hudaina
-  switchNameHandler = (newName) => {
-    //console.log('was clicked');
-    //DONT DO THIS  this.state.persons[0].name = "anupchanged";
-    //manipulated state with setstate jasle garda dom render hunxa
+  //event object
+  namechangedHandler = (event,id) => {
+    const personIndex= this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] =person;
     this.setState(
       {
-        persons: [
-          { name: newName, age: 23 },
-          { name: 'sairachanged', age: 2 },
-          { name: 'bimalachanged', age: 52 }
-        ]
+      persons:persons
       }
     )
   }
-  //event object
-  namechangedHandler = (event) => {
-    this.setState(
-      {
-        persons: [
-          { name: "anupchanged", age: 23 },
-          { name: event.target.value, age: 2 },
-          { name: 'bimalachanged', age: 52 }
-        ]
-      }
-    )
+  
+  deletePersonHandler=(personIndex) =>{
+     // const persons = this.state.persons; dont do this coz direct acess
+     //make copy of array using spread operator
+      const persons = [...this.state.persons];
+      persons.splice(personIndex,1); //remove array
+      this.setState({
+        persons:persons
+      });
+  }
+
+  showpersonHandler = () => {
+   // const doesShow = this.state.showPersons;
+   this.setState ({
+     //showPersons:!doesShow
+     //or short cut
+     showPersons : !this.state.showPersons
+   });
   }
 
 
@@ -57,31 +70,31 @@ class App extends Component{
        cursor:'pointer',
        borderRadius:'5px',
      };
+     //best way to do it instead of direct appliying ternary operator
+     let persons = null;
 
+     if(this.state.showPersons){
+        persons = ( 
+          <div>
+        {this.state.persons.map( (person,index) =>{
+          return <Person 
+          click ={ () =>this.deletePersonHandler(index)}
+          name={person.name} 
+          age={person.age}
+          key={person.id}
+          changed={(event) =>this.namechangedHandler(event,person.id)}/>
+        })}
+          </div> );
+       }
      
     return (<div className="App">
       <h1>hello learners</h1>
       <p>Ready to learn?</p>
 
-      <button style={style} onClick={this.switchNameHandler.bind(this,"newanup")}>Switch Name</button>
-     
-      <Person 
-      name={this.state.persons[0].name} 
-      age={this.state.persons[0].age}>
-        My Hobbies:Racing
-     </Person>
-    
-     <Person 
-      name={this.state.persons[1].name} 
-      age={this.state.persons[1].age}
-      //passing method refrence between components
-      click={this.switchNameHandler.bind(this,'newAnup1')}
-      changed={this.namechangedHandler}></Person>
-
-      <Person 
-      name={this.state.persons[2].name} 
-      age={this.state.persons[2].age}>
-      </Person>
+      <button style={style} onClick={this.showpersonHandler}>Toggle Name</button>
+       {persons}
+  
+  
     </div>);
     //return react.createElement('div',{className:"App"},react.createElement('h1',null,"hello learners"));
   
