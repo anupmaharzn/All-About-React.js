@@ -1,8 +1,9 @@
 
 import React, { Component } from 'react';
 import './App.css';
-
+import Radium, {StyleRoot} from 'radium';
 import Person from './Person/Person';
+
 
 
 class App extends Component{
@@ -64,11 +65,17 @@ class App extends Component{
     //inline styling for button
      const style = {
        backgroundColor :"yellow",
+       color:'black',
        font:'inherit',
        border:'1px solid blue',
        padding:'8px',
        cursor:'pointer',
        borderRadius:'5px',
+       //radium ko use
+       ':hover':{
+         backgroundColor:'lightgreen',
+         color:'white'
+       }
      };
      //best way to do it instead of direct appliying ternary operator
      let persons = null;
@@ -85,17 +92,39 @@ class App extends Component{
           changed={(event) =>this.namechangedHandler(event,person.id)}/>
         })}
           </div> );
-       }
-     
-    return (<div className="App">
-      <h1>hello learners</h1>
-      <p>Ready to learn?</p>
+          style.backgroundColor ='green'
+          style.color='white'
+          //radium package ko use 
+          style[':hover'] = {
+            backgroundColor:'salmon',
+            color:'black'
+          };
+       };
 
-      <button style={style} onClick={this.showpersonHandler}>Toggle Name</button>
-       {persons}
-  
-  
-    </div>);
+       const classes =[];
+       if(this.state.persons.length<=2){
+         classes.push('red'); //lasses =['red']
+
+       }
+       if(this.state.persons.length <=1){
+         classes.push('bold');//classes = ['red','bold']
+       }
+
+     
+    return (
+      <StyleRoot>
+        <div className="App">
+          <h1>hello learners</h1>
+          <p className={classes.join(' ')}>Ready to learn?</p>
+
+          <button style={style}
+            onClick={this.showpersonHandler}>Toggle Name</button>
+          {persons}
+
+
+        </div>
+      </StyleRoot>
+    );
     //return react.createElement('div',{className:"App"},react.createElement('h1',null,"hello learners"));
   
   };
@@ -104,7 +133,7 @@ class App extends Component{
 
 }
 
-export default App;
+export default Radium(App);
 
 
 
