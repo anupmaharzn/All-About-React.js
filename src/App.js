@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.css';
 
 import Person from './Person/Person';
 
@@ -62,19 +62,10 @@ class App extends Component{
 
   render(){
 
-    //inline styling for button
-     const style = {
-       backgroundColor :"yellow",
-       color:'black',
-       font:'inherit',
-       border:'1px solid blue',
-       padding:'8px',
-       cursor:'pointer',
-       borderRadius:'5px',
-      
-     };
+    
      //best way to do it instead of direct appliying ternary operator
      let persons = null;
+     let btnClass = '';
 
      if(this.state.showPersons){
         persons = ( 
@@ -87,9 +78,9 @@ class App extends Component{
           key={person.id}
           changed={(event) =>this.namechangedHandler(event,person.id)}/>
         })}
-          </div> );
-          style.backgroundColor ='green'
-          style.color='white'
+          </div> 
+          );
+         btnClass = 'red';
         
        };
 
@@ -105,11 +96,11 @@ class App extends Component{
      
     return (
     
-        <div className="App">
+      <div className='App'>
           <h1>hello learners</h1>
           <p className={classes.join(' ')}>Ready to learn?</p>
 
-          <button style={style}
+          <button className={btnClass}
             onClick={this.showpersonHandler}>Toggle Name</button>
           {persons}
 
