@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import './App.css';
-import Radium, {StyleRoot} from 'radium';
+
 import Person from './Person/Person';
 
 
@@ -71,11 +71,7 @@ class App extends Component{
        padding:'8px',
        cursor:'pointer',
        borderRadius:'5px',
-       //radium ko use
-       ':hover':{
-         backgroundColor:'lightgreen',
-         color:'white'
-       }
+      
      };
      //best way to do it instead of direct appliying ternary operator
      let persons = null;
@@ -94,11 +90,7 @@ class App extends Component{
           </div> );
           style.backgroundColor ='green'
           style.color='white'
-          //radium package ko use 
-          style[':hover'] = {
-            backgroundColor:'salmon',
-            color:'black'
-          };
+        
        };
 
        const classes =[];
@@ -112,7 +104,7 @@ class App extends Component{
 
      
     return (
-      <StyleRoot>
+    
         <div className="App">
           <h1>hello learners</h1>
           <p className={classes.join(' ')}>Ready to learn?</p>
@@ -123,7 +115,7 @@ class App extends Component{
 
 
         </div>
-      </StyleRoot>
+      
     );
     //return react.createElement('div',{className:"App"},react.createElement('h1',null,"hello learners"));
   
@@ -133,7 +125,7 @@ class App extends Component{
 
 }
 
-export default Radium(App);
+export default App;
 
 
 
