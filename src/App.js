@@ -1,6 +1,6 @@
 
 import React, { Component } from 'react';
-import styles from './App.css';
+import styles from './App.module.css' //css module import
 
 import Person from './Person/Person';
 
@@ -80,23 +80,23 @@ class App extends Component{
         })}
           </div> 
           );
-         btnClass = 'red';
+         btnClass = styles.red;
         
        };
-
+   //css module use gareko
        const classes =[];
        if(this.state.persons.length<=2){
-         classes.push('red'); //lasses =['red']
+         classes.push(styles.red); //lasses =['red']
 
        }
        if(this.state.persons.length <=1){
-         classes.push('bold');//classes = ['red','bold']
+         classes.push(styles.bold);//classes = ['red','bold']
        }
 
      
     return (
-    
-      <div className='App'>
+    //css module use garyeko
+      <div className={styles.App}> 
           <h1>hello learners</h1>
           <p className={classes.join(' ')}>Ready to learn?</p>
 
