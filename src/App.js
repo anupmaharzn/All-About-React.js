@@ -4,7 +4,7 @@ import styles from './App.module.css' //css module import
 
 import Person from './Person/Person';
 
-
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component{
 
@@ -71,12 +71,13 @@ class App extends Component{
         persons = ( 
           <div>
         {this.state.persons.map( (person,index) =>{
-          return <Person 
+          //errorboundary component is HOC and now  key should be in outer element in map method
+          return <ErrorBoundary key={person.id}> <Person 
           click ={ () =>this.deletePersonHandler(index)}
           name={person.name} 
           age={person.age}
-          key={person.id}
-          changed={(event) =>this.namechangedHandler(event,person.id)}/>
+          
+          changed={(event) =>this.namechangedHandler(event,person.id)}/> </ErrorBoundary>
         })}
           </div> 
           );
