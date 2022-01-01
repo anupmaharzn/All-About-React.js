@@ -4,7 +4,9 @@ import styles from './App.module.css' //css module import
 
 import Person from '../components/Persons/Person/Person';
 
+import Persons from '../components/Persons/Persons';
 
+import Cockpit from '../components/cockpit/cockpit';
 
 class App extends Component{
 
@@ -65,43 +67,32 @@ class App extends Component{
     
      //best way to do it instead of direct appliying ternary operator
      let persons = null;
-     let btnClass = '';
+     
 
      if(this.state.showPersons){
         persons = ( 
           <div>
-        {this.state.persons.map( (person,index) =>{
-          return <Person  
-          click ={ () =>this.deletePersonHandler(index)}
-          name={person.name} 
-          age={person.age}
-          key={person.id}
-          changed={(event) =>this.namechangedHandler(event,person.id)}/>
-        })}
+            <Persons 
+            persons={this.state.persons}
+            clicked ={this.deletePersonHandler}
+            changed ={this.namechangedHandler}
+            />
           </div> 
           );
-         btnClass = styles.red;
+        
         
        };
-   //css module use gareko
-       const classes =[];
-       if(this.state.persons.length<=2){
-         classes.push(styles.red); //lasses =['red']
-
-       }
-       if(this.state.persons.length <=1){
-         classes.push(styles.bold);//classes = ['red','bold']
-       }
+ 
 
      
     return (
     //css module use garyeko
       <div className={styles.App}> 
-          <h1>hello learners</h1>
-          <p className={classes.join(' ')}>Ready to learn?</p>
-
-          <button className={btnClass}
-            onClick={this.showpersonHandler}>Toggle Name</button>
+          <Cockpit
+          showPersons = {this.showPersons}
+          persons = {this.state.persons}
+          clicked = {this.showpersonHandler}
+          />
           {persons}
 
 
