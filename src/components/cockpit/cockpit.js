@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
-import styles from './cockpit.module.css';
+import styles from './Cockpit.module.css';
 
-const cockpit = (props) => {
-
+function Cockpit(props) {
+    //arrow function use garda error airako xa somehow ;
+    useEffect(function () {
+        console.log('[Cockpit.js] useEffect');
+        //http request ...
+        //const timer =
+        setTimeout(() => {
+            alert('save data to cloud');
+        }, 1000);
+        //cleanup work using useEffect,triggers with component is unmounted
+        return () => {
+            //clearTimeout(timer);
+            console.log('[cockpit.js] cleanup work in useEffect');
+        };
+    }, []); //depending up second arguement useEffect can be controlled
+    //works in every life cycle coz no second arugments
+    useEffect(function () {
+        console.log('[Cockpit.js] 2nd useEffect');
+        return () => {
+            console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+        }
+    });
     const classes = [];
     let btnClass = '';
+
+
     if (props.showPersons) {
         btnClass = styles.red;
     }
@@ -27,4 +49,5 @@ const cockpit = (props) => {
     );
 };
 
-export default cockpit;
+
+export default Cockpit;

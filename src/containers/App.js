@@ -4,7 +4,7 @@ import styles from './App.module.css' //css module import
 
 import Persons from '../components/Persons/Persons';
 
-import Cockpit from '../components/cockpit/cockpit';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component{
  
@@ -24,13 +24,15 @@ class App extends Component{
       { id: '3',name: 'bimala', age: 52 }
     ],
     otherstate: 'some other value',
-    showPersons : false
+    showPersons : false,
+    showcockpit: true
   };
 
   static getDerivedStateFromProps(props,state) {
     console.log('[App.js] getDerivedStateFromProps',props);
     return state;
   }
+  
 // doesnt use this
   // componentWillMount() {
   //   console.log("[App.js] componentwillMount"
@@ -40,6 +42,14 @@ class App extends Component{
   componentDidMount(){
     console.log('[App.js] componentdidmount');
   }
+ shouldComponentUpdate(nextProps,nextState){
+   console.log('[App.js] shouldComponentUpdate');
+   return true;
+ }
+
+ componentDidUpdate(){
+   console.log('[App.js] componentDidUpdate');
+ }
 
 
   //anyform of function hunu parxa shorthanded hudaina
@@ -107,13 +117,15 @@ console.log('[App.js] render');
      
     return (
     //css module use garyeko
+    
       <div className={styles.App}> 
-          <Cockpit
+        <button onClick={()=>{this.setState({showcockpit:false})}}>Remove Cockpit</button>
+          {this.state.showcockpit ?<Cockpit
           title={this.props.appTitle}
           showPersons = {this.showPersons}
           persons = {this.state.persons}
           clicked = {this.showpersonHandler}
-          />
+          />:null}
           {persons}
 
 
