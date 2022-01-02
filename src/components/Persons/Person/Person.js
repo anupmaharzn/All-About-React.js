@@ -3,7 +3,7 @@ import style from './Person.module.css';
 
 
 const person = (props) => {
-
+    console.log('[person.js] rendering ....');
     return (
         <div className={style.Person} >
             <p onClick={props.click}> Im {props.name} and i am {props.age} years old</p>

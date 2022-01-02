@@ -2,14 +2,19 @@
 import React, { Component } from 'react';
 import styles from './App.module.css' //css module import
 
-import Person from '../components/Persons/Person/Person';
-
 import Persons from '../components/Persons/Persons';
 
 import Cockpit from '../components/cockpit/cockpit';
 
 class App extends Component{
+ 
 
+  constructor(props){
+    super(props);
+    console.log('[App.js] constructor');
+    //you can also initilize state this.state in here but 
+    //bottom maa garda ni yehi process hunxa
+  };
    
   //certain data ko state//in real case this can be data fetch from API 
   state = {
@@ -20,7 +25,22 @@ class App extends Component{
     ],
     otherstate: 'some other value',
     showPersons : false
+  };
+
+  static getDerivedStateFromProps(props,state) {
+    console.log('[App.js] getDerivedStateFromProps',props);
+    return state;
   }
+// doesnt use this
+  // componentWillMount() {
+  //   console.log("[App.js] componentwillMount"
+  //   );
+  // }
+
+  componentDidMount(){
+    console.log('[App.js] componentdidmount');
+  }
+
 
   //anyform of function hunu parxa shorthanded hudaina
   //event object
@@ -63,9 +83,9 @@ class App extends Component{
 
 
   render(){
-
+console.log('[App.js] render');
     
-     //best way to do it instead of direct appliying ternary operator
+     //best way to do it, instead of direct appliying ternary operator
      let persons = null;
      
 
@@ -89,6 +109,7 @@ class App extends Component{
     //css module use garyeko
       <div className={styles.App}> 
           <Cockpit
+          title={this.props.appTitle}
           showPersons = {this.showPersons}
           persons = {this.state.persons}
           clicked = {this.showpersonHandler}
@@ -96,7 +117,7 @@ class App extends Component{
           {persons}
 
 
-        </div>
+        </div> 
       
     );
     //return react.createElement('div',{className:"App"},react.createElement('h1',null,"hello learners"));
