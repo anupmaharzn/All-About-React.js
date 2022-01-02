@@ -119,11 +119,12 @@ console.log('[App.js] render');
     //css module use garyeko
     
       <div className={styles.App}> 
+      
         <button onClick={()=>{this.setState({showcockpit:false})}}>Remove Cockpit</button>
           {this.state.showcockpit ?<Cockpit
           title={this.props.appTitle}
-          showPersons = {this.showPersons}
-          persons = {this.state.persons}
+          showPersons = {this.state.showPersons}
+          personslength = {this.state.persons.length}
           clicked = {this.showpersonHandler}
           />:null}
           {persons}

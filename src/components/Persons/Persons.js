@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import Person from "./Person/Person";
 
 
-class Persons extends Component {
+class Persons extends PureComponent {
 
     //life cycle update
 
@@ -21,22 +21,32 @@ class Persons extends Component {
 
 
 
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log('[persons.js] shouldComponentUpdate');
-        return true;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     console.log('[persons.js] shouldComponentUpdate');
+    //     // check
+    //     if (nextProps.persons !== this.props.persons ||
+    //         nextProps.changed !== this.props.changed ||
+    //         nextProps.clicked !== this.props.clicked) {
+    //         return true;
+    //     }
+    //     else {
+    //         return false;
+    //     }
+
+    // }
 
     getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log('[Perons.js] getSnapshotBeforUpdate');
-        return null;
+        return { message: 'Snapshot!' };
     }
     //not used ahile
     // componentWillUpdate(){
 
     // }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('[Persons.js] componentDidUpdate');
+        console.log(snapshot);
     }
 
     componentWillUnmount() {

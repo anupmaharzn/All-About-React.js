@@ -6,14 +6,14 @@ function Cockpit(props) {
     //arrow function use garda error airako xa somehow ;
     useEffect(function () {
         console.log('[Cockpit.js] useEffect');
-        //http request ...
-        //const timer =
+        //http request ... like example
+
         setTimeout(() => {
             alert('save data to cloud');
         }, 1000);
         //cleanup work using useEffect,triggers with component is unmounted
         return () => {
-            //clearTimeout(timer);
+
             console.log('[cockpit.js] cleanup work in useEffect');
         };
     }, []); //depending up second arguement useEffect can be controlled
@@ -31,11 +31,11 @@ function Cockpit(props) {
     if (props.showPersons) {
         btnClass = styles.red;
     }
-    if (props.persons.length <= 2) {
+    if (props.personslength <= 2) {
         classes.push(styles.red); //lasses =['red']
 
     }
-    if (props.persons.length <= 1) {
+    if (props.personslength <= 1) {
         classes.push(styles.bold);//classes = ['red','bold']
     }
     return (
@@ -50,4 +50,4 @@ function Cockpit(props) {
 };
 
 
-export default Cockpit;
+export default React.memo(Cockpit);
