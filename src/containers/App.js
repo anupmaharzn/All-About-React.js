@@ -6,6 +6,10 @@ import Persons from '../components/Persons/Persons';
 
 import Cockpit from '../components/Cockpit/Cockpit';
 
+import withClass from '../hoc/withClass';
+
+import Aux from '../hoc/Auxiliary';
+
 class App extends Component{
  
 
@@ -118,7 +122,7 @@ console.log('[App.js] render');
     return (
     //css module use garyeko
     
-      <div className={styles.App}> 
+      <Aux> 
       
         <button onClick={()=>{this.setState({showcockpit:false})}}>Remove Cockpit</button>
           {this.state.showcockpit ?<Cockpit
@@ -128,9 +132,7 @@ console.log('[App.js] render');
           clicked = {this.showpersonHandler}
           />:null}
           {persons}
-
-
-        </div> 
+      </Aux>
       
     );
     //return react.createElement('div',{className:"App"},react.createElement('h1',null,"hello learners"));
@@ -141,7 +143,7 @@ console.log('[App.js] render');
 
 }
 
-export default App;
+export default withClass(App,styles.App);
 
 
 
