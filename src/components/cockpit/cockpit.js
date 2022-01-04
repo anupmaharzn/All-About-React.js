@@ -1,16 +1,25 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 
 import styles from './Cockpit.module.css';
 
+import AuthContext from '../../context/auth-context';
+
+
 function Cockpit(props) {
+
+    const toggleBtnRef = useRef(null);
+    //use of contextApi in functional components 
+    const authContext = useContext(AuthContext);
+    console.log(authContext.authenticated);
     //arrow function use garda error airako xa somehow ;
-    useEffect(function () {
+    useEffect(() => {
         console.log('[Cockpit.js] useEffect');
         //http request ... like example
+        // setTimeout(() => {
+        //     alert('save data to cloud');
+        // }, 1000);
+        toggleBtnRef.current.click();
 
-        setTimeout(() => {
-            alert('save data to cloud');
-        }, 1000);
         //cleanup work using useEffect,triggers with component is unmounted
         return () => {
 
@@ -43,8 +52,15 @@ function Cockpit(props) {
             <h1>{props.title}</h1>
             <p className={classes.join(' ')}>Ready to learn?</p>
 
-            <button className={btnClass}
+            <button ref={toggleBtnRef} className={btnClass}
                 onClick={props.clicked}>Toggle Name</button>
+
+            {/* use of contextApi in fuctional component */}
+
+            <button onClick={authContext.login} >login</button>
+
+
+
         </div>
     );
 };
